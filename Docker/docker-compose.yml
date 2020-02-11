@@ -1,0 +1,35 @@
+version: "3.4"
+
+services:
+  miservicio_php:
+    build:
+      context: ./ApachePhp
+    #      target: miapachephpcom
+    volumes:
+      - ./../:/var/www/html
+    ports:
+      - 80:80
+
+  selenium-hub:
+    image: selenium/hub:3.141.59-zinc
+    container_name: selenium-hub
+    links:
+      - miservicio_php:miservicio_php
+    depends_on:
+      - miservicio_php
+    ports:
+      - "4444:4444"
+
+
+  chrome:
+    image: selenium/node-chrome:3.141.59-zinc
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+
+volumes:
+  mysql-db-data:

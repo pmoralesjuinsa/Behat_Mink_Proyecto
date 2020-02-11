@@ -1,0 +1,23 @@
+{
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "": "tests/"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpunit/phpunit": "^8",
+        "behat/behat": "3.6.1",
+        "behat/mink": "^1.7",
+        "behat/mink-extension": "^2.3",
+        "behat/mink-goutte-driver": "^1.2",
+        "behat/mink-selenium2-driver": "*"
+    }
+}

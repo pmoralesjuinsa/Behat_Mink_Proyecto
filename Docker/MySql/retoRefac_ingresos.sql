@@ -1,0 +1,2 @@
+INSERT INTO retoRefac.ingresos (id, nombre, importe, fecha) VALUES (1, 'nomina', 6438.1, '2020-01-01 00:00:00');
+INSERT INTO retoRefac.ingresos (id, nombre, importe, fecha) VALUES (17, 'Nomina', 7500, '2020-02-01 00:00:00');
