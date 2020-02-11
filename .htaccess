@@ -1,0 +1,9 @@
+RewriteEngine on
+
+RewriteRule ^gastos /src/Gastos/index.php
+
+RewriteRule ^ingresos /src/Ingresos/index.php
+
+RewriteRule ^dashboard /src/Dashboard/index.php
+
+RewriteRule ^$ /dashboard [L]

@@ -26,8 +26,14 @@ abstract class DBAbstractModel
     # no son abstractos
 
     # Conectar a la base de datos
-    protected function open_connection() {
-        $this->conn = new mysqli(self::$db_host, self::$db_user, self::$db_pass, $this->db_name);
+    protected function open_connection($bd_type = null) {
+
+        if(is_null($bd_type)) {
+            $this->conn = new \SQLite3(__DIR__."/Db/SqlLite.db");
+        } else {
+            $this->conn = new mysqli(self::$db_host, self::$db_user, self::$db_pass, $this->db_name);
+        }
+
     }
 
     # Desconectar la base de datos
