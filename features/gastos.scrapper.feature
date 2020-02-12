@@ -41,3 +41,12 @@ Feature: Scrap behat gastos from my localhost project
     When I follow "Buscar/editar gasto"
     Then I should see "Buscar gastos"
     Then I take a screenshot with "add_gasto"
+
+  @delete_gasto
+  @javascript
+  Scenario: Delete gasto added by selenium
+    Given I am on "http://192.168.1.164/gastos/buscar/"
+    Then I should see "Buscar gastos"
+    Then I follow "agregado con Mink"
+    Then I take a screenshot with "delete_gasto"
+
