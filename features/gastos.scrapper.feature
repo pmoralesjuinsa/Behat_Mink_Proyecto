@@ -29,7 +29,7 @@ Feature: Scrap behat gastos from my localhost project
   Scenario: Add gasto
     Given I am on "http://localhost/gastos/agregar/"
     And print current URL
-    Then I should see "Tipo Gastos"
+    Then I should see "Crear un nuevo gasto"
     When I fill in "id_tipo_gastos" with "9"
     And I fill in "cantidad" with "111"
     And I fill in "importe" with "111"
