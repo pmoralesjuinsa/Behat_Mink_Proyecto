@@ -42,13 +42,14 @@ Feature: Scrap behat ingresos from my localhost project
     Then I take a screenshot with "add_ingreso"
 
   @delete_ingreso
+  @deletes
   @javascript
   Scenario: Delete ingreso added by selenium
     Given I am on "http://192.168.1.164/ingresos/buscar/"
     Then I should see "Buscar ingresos"
     When I follow "Added with Behat"
     Then I take a screenshot with "delete_ingreso"
-    Then I delete the desired ingreso
+    Then I delete the desired "ingreso"
     Then I take a screenshot with "del_ingreso_id"
     And I press "Eliminar"
     Then I should see "Ingreso eliminado"

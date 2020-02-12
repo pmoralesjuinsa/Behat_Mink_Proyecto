@@ -44,13 +44,14 @@ Feature: Scrap behat gastos from my localhost project
     Then I take a screenshot with "add_gasto"
 
   @delete_gasto
+  @deletes
   @javascript
   Scenario: Delete gasto added by selenium
     Given I am on "http://192.168.1.164/gastos/buscar/"
     Then I should see "Buscar gastos"
     When I follow "agregado con Mink"
     Then I take a screenshot with "delete_gasto"
-    Then I delete the desired gasto
+    Then I delete the desired "gasto"
     Then I take a screenshot with "del_gasto_id"
     And I press "Eliminar"
     Then I should see "Gasto eliminado"

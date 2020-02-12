@@ -47,10 +47,14 @@ class FeatureContext extends RawMinkContext implements Context
         file_put_contents($file_and_path, $image_data);
     }
 
-     /**
-     * @Then I delete the desired gasto
-     */
-    public function iDeleteTheDesiredGasto()
+    /**
+    * * Get the id in form field with specified gasto|ingreso and delete it
+    * Example: I delete the desired "ingreso"
+    * Example: I delete the desired "gasto"
+    *
+    * @Then /^(?:|I ) delete the desired "(?:ingreso|gasto)"$/
+    */
+    public function iDeleteTheDesired($ingreso_gasto)
     {
         $page = $this->getSession()->getPage();
         $content = $page->find('named', array('id', 'alta_usuario'));
@@ -60,15 +64,15 @@ class FeatureContext extends RawMinkContext implements Context
             throw new Exception('Desired id not detected');
         }
 
-        $this->getSession()->getPage()->clickLink("Borrar gasto");
+        $this->getSession()->getPage()->clickLink("Borrar $ingreso_gasto");
 
         sleep(1);
 
-        $this->iPutTheDesiredGasto($delete_id);
+        $this->iPutTheDesired($delete_id);
 
     }
 
-    protected function iPutTheDesiredGasto($delete_id)
+    protected function iPutTheDesired($delete_id)
     {
         $this->getSession()->getPage()->fillField("id", $delete_id);
     }
