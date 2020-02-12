@@ -41,13 +41,13 @@ class FeatureContext extends RawMinkContext implements Context
 
     /**
      * @Then I take a screenshot
+     * @Then I take a screenshot with :arg1
      */
-    public function iTakeAScreenshot()
+    public function iTakeAScreenshot($name = '')
     {
         $image_data = $this->getSession()->getDriver()->getScreenshot();
-        $file_and_path = __DIR__ . '/../../screenshots/' . strtotime(date('d-m-Y h:i:s')) . '_screenshot.jpg';
+        $file_and_path = __DIR__ . '/../../screenshots/'.$name . strtotime(date('d-m-Y h:i:s')) . '_screenshot.jpg';
         file_put_contents($file_and_path, $image_data);
     }
-
 
 }

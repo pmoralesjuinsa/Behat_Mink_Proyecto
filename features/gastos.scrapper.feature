@@ -33,8 +33,11 @@ Feature: Scrap behat gastos from my localhost project
     When I fill in "id_tipo_gastos" with "9"
     And I fill in "cantidad" with "111"
     And I fill in "importe" with "111"
-    And I fill in "fecha" with "2020-02-12"
+    And I fill in "fecha" with "02-12-2020"
     And I fill in "nota" with "agregado con Mink"
-    Then I take a screenshot
+    Then I take a screenshot with "add_gasto"
     And I press "Agregar"
     Then I should see "Gasto agregado exitosamente"
+    When I follow "Buscar/editar gasto"
+    Then I should see "Buscar gastos"
+    Then I take a screenshot with "add_gasto"
