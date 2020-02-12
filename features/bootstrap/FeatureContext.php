@@ -10,10 +10,7 @@ use Behat\MinkExtension\Context\RawMinkContext;
 class FeatureContext extends RawMinkContext implements Context
 {
 
-    public function __construct()
-    {
-
-    }
+    private $delete_id;
 
 
     /**
@@ -57,9 +54,23 @@ class FeatureContext extends RawMinkContext implements Context
     {
         $page = $this->getSession()->getPage();
         $content = $page->find('named', array('id', 'alta_usuario'));
-        $delete_id = $content->find('named', array('id', 'id'))->getValue();
+        try {
+            $delete_id = $content->find('named', array('id', 'id'))->getValue();
+        } catch (\Exception $exception) {
+            throw new Exception('Desired id not detected');
+        }
 
+        $this->getSession()->getPage()->clickLink("Borrar gasto");
 
+        sleep(1);
+
+        $this->iPutTheDesiredGasto($delete_id);
+
+    }
+
+    protected function iPutTheDesiredGasto($delete_id)
+    {
+        $this->getSession()->getPage()->fillField("id", $delete_id);
     }
 
 
