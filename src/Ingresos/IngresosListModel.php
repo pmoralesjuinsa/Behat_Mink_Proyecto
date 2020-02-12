@@ -24,8 +24,8 @@ class IngresosListModel extends DBAbstractModel
                             ingresos
                         WHERE 
                             fecha BETWEEN
-                                strftime('$anio_hoy-$mes_hoy-01 00:00:00') AND
-                                strftime('$hoy 00:00:00')
+                                strftime('$anio_hoy-$mes_hoy-01') AND
+                                strftime('$hoy')
                         ";
         $this->get_results_from_query();
 

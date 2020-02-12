@@ -5,7 +5,7 @@ Feature: Scrap behat gastos from my localhost project
 
 
   @gastos_list
-  Scenario: See gastos List
+  Scenario: See gastos List from dashboard
     Given I am on "http://localhost/dashboard/"
     Then I should see "Beneficios del mes"
     When I follow "Buscar/editar gasto"
@@ -15,7 +15,7 @@ Feature: Scrap behat gastos from my localhost project
   @edit_gasto
   Scenario: Edit gasto
     Given I am on "http://localhost/gastos/buscar/"
-    When I fill in "alta_usuario" with "11"
+    When I fill in "id" with "11"
     And I press "Buscar"
     And print current URL
     Then I should see "Editar 11"
