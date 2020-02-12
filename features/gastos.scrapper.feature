@@ -38,4 +38,3 @@ Feature: Scrap behat gastos from my localhost project
     Then I take a screenshot
     And I press "Agregar"
     Then I should see "Gasto agregado exitosamente"
-
