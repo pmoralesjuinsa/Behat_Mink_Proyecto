@@ -50,4 +50,17 @@ class FeatureContext extends RawMinkContext implements Context
         file_put_contents($file_and_path, $image_data);
     }
 
+     /**
+     * @Then I delete the desired gasto
+     */
+    public function iDeleteTheDesiredGasto()
+    {
+        $page = $this->getSession()->getPage();
+        $content = $page->find('named', array('id', 'alta_usuario'));
+        $delete_id = $content->find('named', array('id', 'id'))->getValue();
+
+
+    }
+
+
 }
