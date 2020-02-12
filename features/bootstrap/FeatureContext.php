@@ -52,7 +52,7 @@ class FeatureContext extends RawMinkContext implements Context
     * Example: I delete the desired "ingreso"
     * Example: I delete the desired "gasto"
     *
-    * @Then /^(?:|I )delete the desired "(?:ingreso|gasto)"$/
+    * @Then /^(?:|I )delete the desired "(ingreso|gasto)"$/
     */
     public function iDeleteTheDesired($ingreso_gasto)
     {
