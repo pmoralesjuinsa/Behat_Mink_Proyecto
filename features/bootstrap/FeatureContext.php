@@ -52,7 +52,7 @@ class FeatureContext extends RawMinkContext implements Context
     * Example: I delete the desired "ingreso"
     * Example: I delete the desired "gasto"
     *
-    * @Then /^(?:|I ) delete the desired "(?:ingreso|gasto)"$/
+    * @Then /^(?:|I )delete the desired "(?:ingreso|gasto)"$/
     */
     public function iDeleteTheDesired($ingreso_gasto)
     {
@@ -73,32 +73,6 @@ class FeatureContext extends RawMinkContext implements Context
     }
 
     protected function iPutTheDesired($delete_id)
-    {
-        $this->getSession()->getPage()->fillField("id", $delete_id);
-    }
-
-    /**
-     * @Then I delete the desired ingreso
-     */
-    public function iDeleteTheDesiredIngreso()
-    {
-        $page = $this->getSession()->getPage();
-        $content = $page->find('named', array('id', 'alta_usuario'));
-        try {
-            $delete_id = $content->find('named', array('id', 'id'))->getValue();
-        } catch (\Exception $exception) {
-            throw new Exception('Desired id not detected');
-        }
-
-        $this->getSession()->getPage()->clickLink("Borrar ingreso");
-
-        sleep(1);
-
-        $this->iPutTheDesiredIngreso($delete_id);
-
-    }
-
-    protected function iPutTheDesiredIngreso($delete_id)
     {
         $this->getSession()->getPage()->fillField("id", $delete_id);
     }
