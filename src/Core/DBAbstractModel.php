@@ -2,15 +2,8 @@
 
 namespace Src\Core;
 
-use Mysqli;
-
 abstract class DBAbstractModel
 {
-
-    private static $db_host = 'elalias';
-    private static $db_user = 'root';
-    private static $db_pass = '123456';
-    protected $db_name = 'retoRefac';
     protected $query;
     protected $rows = array();
     private $conn;
@@ -27,13 +20,7 @@ abstract class DBAbstractModel
 
     # Conectar a la base de datos
     protected function open_connection($bd_type = null) {
-
-        if(is_null($bd_type)) {
-            $this->conn = new \SQLite3(__DIR__."/Db/SqlLite.db");
-        } else {
-            $this->conn = new mysqli(self::$db_host, self::$db_user, self::$db_pass, $this->db_name);
-        }
-
+        $this->conn = new \SQLite3(__DIR__."/../Db/SqlLite.db");
     }
 
     # Desconectar la base de datos
@@ -59,8 +46,8 @@ abstract class DBAbstractModel
     public function get_results_from_query() {
         $this->open_connection();
         $result = $this->conn->query($this->query);
-        while ($this->rows[] = $result->fetch_assoc());
-        $result->close();
+        while ($this->rows[] = $result->fetchArray(\PDO::FETCH_OBJ));
+        $result->finalize();
         $this->close_connection();
         array_pop($this->rows);
     }
