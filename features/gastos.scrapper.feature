@@ -5,6 +5,7 @@ Feature: Scrap behat gastos from my localhost project
 
 
   @gastos_list
+  @my_lists
   Scenario: See gastos List from dashboard
     Given I am on "http://localhost/dashboard/"
     Then I should see "Beneficios del mes"
