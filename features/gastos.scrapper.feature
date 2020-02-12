@@ -15,20 +15,27 @@ Feature: Scrap behat gastos from my localhost project
   @edit_gasto
   Scenario: Edit gasto
     Given I am on "http://localhost/gastos/buscar/"
-    When I fill in "id" with "11"
+    When I fill in "id" with "44"
     And I press "Buscar"
     And print current URL
-    Then I should see "Editar 11"
+    Then I should see "Editar 44"
+    Then I fill in "nota" with "Editado con Mink"
+    And I press "Guardar"
+    Then I should see "Gasto modificado"
 #    And I save references in a local storage device
 
-#  @primeros_pasos
-#  @javascript
-#  Scenario: Navigating Wikipedia Spain "Primeros pasos"
-#    And print current URL
-#    Then I should see "Bienvenidos"
-#    Then the url should match "wiki/Wikipedia:Portada"
-#    When I follow "Primeros pasos"
-#    Then I should see "Introducción a Wikipedia"
-#    When I follow "Imágenes"
-#    And print current URL
-#    Then I take a screenshot
+  @add_gasto
+  @javascript
+  Scenario: Add gasto
+    Given I am on "http://localhost/gastos/agregar/"
+    And print current URL
+    Then I should see "Tipo Gastos"
+    When I fill in "id_tipo_gastos" with "9"
+    And I fill in "cantidad" with "111"
+    And I fill in "importe" with "111"
+    And I fill in "fecha" with "2020-02-12"
+    And I fill in "nota" with "agregado con Mink"
+    Then I take a screenshot
+    And I press "Agregar"
+    Then I should see "Gasto agregado exitosamente"
+
