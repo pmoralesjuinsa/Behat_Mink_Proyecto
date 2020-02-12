@@ -27,7 +27,7 @@ Feature: Scrap behat gastos from my localhost project
   @add_gasto
   @javascript
   Scenario: Add gasto
-    Given I am on "http://localhost/gastos/agregar/"
+    Given I am on "http://192.168.1.164/gastos/agregar/"
     And print current URL
     Then I should see "Crear un nuevo gasto"
     When I fill in "id_tipo_gastos" with "9"
