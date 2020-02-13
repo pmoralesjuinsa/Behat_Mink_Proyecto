@@ -23,12 +23,11 @@ Feature: Scrap behat ingresos from my localhost project
     Then I fill in "importe" with "77500"
     And I press "Guardar"
     Then I should see "Ingreso modificado"
-#    And I save references in a local storage device
 
   @add_ingreso
   @javascript
   Scenario: Add ingreso
-    Given I am on "http://192.168.1.164/ingresos/agregar/"
+    Given I am on "http://172.16.1.108/ingresos/agregar/"
     And print current URL
     Then I should see "Crear un nuevo ingreso"
     When I fill in "nombre" with "Added with Behat"
@@ -39,13 +38,13 @@ Feature: Scrap behat ingresos from my localhost project
     Then I should see "Ingreso agregado exitosamente"
     When I follow "Buscar/editar ingreso"
     Then I should see "Buscar ingresos"
-    Then I take a screenshot with "add_ingreso"
+    And I save ingresos in a local storage device
 
   @delete_ingreso
   @deletes
   @javascript
   Scenario: Delete ingreso added by selenium
-    Given I am on "http://192.168.1.164/ingresos/buscar/"
+    Given I am on "http://172.16.1.108/ingresos/buscar/"
     Then I should see "Buscar ingresos"
     When I follow "Added with Behat"
     Then I take a screenshot with "delete_ingreso"

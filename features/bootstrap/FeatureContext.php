@@ -14,26 +14,23 @@ class FeatureContext extends RawMinkContext implements Context
 
 
     /**
-     * @Then I save references in a local storage device
+     * @Then I save ingresos in a local storage device
      */
-    public function iSaveReferencesInALocalStorageDevice()
+    public function iSaveIngresosInALocalStorageDevice()
     {
         $page = $this->getSession()->getPage();
 
-        $content = $page->find('named', array('id', 'mw-content-text'));
+        $content = $page->find('named', array('id', 'listado'));
 
-        $references = $content->find('css', '.references'); //Find devuelve únicamente el primer match de la clase .references
+        $items = $content->findAll('css', 'li:not(.titulo)'); //FindAll devuelve todos los elementos que coincidan con li
 
-        $items = $references->findAll('css', 'li'); //FindAll devuelve todos los elementos que coincidan con li
-
-        $links = [];
+        $ingresos = [];
 
         foreach ($items as $item) {
-            $linkContainer = $item->find('xpath', '//span[@class="reference-text"]');
-            $links[] = $linkContainer->find('xpath', '//a/@href')->getText();
+            $ingresos[] = $item->getText();
         }
 
-        file_put_contents('scrapped_references.txt', join(PHP_EOL, $links));
+        file_put_contents('scrapped_ingresos.txt', join(PHP_EOL, $ingresos));
     }
 
     /**
