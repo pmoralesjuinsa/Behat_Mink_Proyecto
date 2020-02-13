@@ -1,3 +1,5 @@
 /vendor/
 /composer.lock
 /screenshots/
+scrapped_gastos.txt
+scrapped_ingresos.txt

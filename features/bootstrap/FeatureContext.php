@@ -33,6 +33,7 @@ class FeatureContext extends RawMinkContext implements Context
 
         file_put_contents("scrapped_$ingreso_gasto.txt", join(PHP_EOL, $collection));
     }
+git commit -m ".gitignore fix"
 
     /**
      * @Then I take a screenshot
