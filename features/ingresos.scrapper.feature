@@ -38,7 +38,7 @@ Feature: Scrap behat ingresos from my localhost project
     Then I should see "Ingreso agregado exitosamente"
     When I follow "Buscar/editar ingreso"
     Then I should see "Buscar ingresos"
-    And I save ingresos in a local storage device
+    And I save "ingresos" in a local storage device
 
   @delete_ingreso
   @deletes

@@ -14,23 +14,24 @@ class FeatureContext extends RawMinkContext implements Context
 
 
     /**
-     * @Then I save ingresos in a local storage device
+     * @Then /^(?:|I )save "(ingresos|gastos)" in a local storage device$/
+     *
      */
-    public function iSaveIngresosInALocalStorageDevice()
+    public function iSaveInALocalStorageDevice($ingreso_gasto)
     {
         $page = $this->getSession()->getPage();
 
-        $content = $page->find('named', array('id', 'listado'));
+        $content = $page->find('named', array('id', 'listado')); //devuelve el primer elemento que encuentra
 
         $items = $content->findAll('css', 'li:not(.titulo)'); //FindAll devuelve todos los elementos que coincidan con li
 
-        $ingresos = [];
+        $collection = [];
 
         foreach ($items as $item) {
-            $ingresos[] = $item->getText();
+            $collection[] = $item->getText();
         }
 
-        file_put_contents('scrapped_ingresos.txt', join(PHP_EOL, $ingresos));
+        file_put_contents("scrapped_$ingreso_gasto.txt", join(PHP_EOL, $collection));
     }
 
     /**

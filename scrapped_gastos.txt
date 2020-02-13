@@ -1,0 +1,10 @@
+Gastos casa 1 63 01-02-2020 00:00:00 63 Restante del mes de Enero
+Cochera 1 40 04-02-2020 00:00:00 40 Firma de contratoo
+Desplazamiento 16 8 06-02-2020 00:00:00 128
+Comida 12 5.03 06-02-2020 00:00:00 60.36
+Vivienda 1 150 01-02-2020 00:00:00 150 Editado con Mink
+Luz 1 53 06-02-2020 00:00:00 53
+Letra Coche 1 182.41 06-02-2020 00:00:00 182.41
+Agua 1 43 09-02-2020 00:00:00 43
+Otros Varios 1 495 09-02-2020 00:00:00 495 Monitor nuevo
+Otros Varios 111 111 12-02-2020 00:00:00 12321 agregado con Mink

@@ -28,7 +28,7 @@ Feature: Scrap behat gastos from my localhost project
   @add_gasto
   @javascript
   Scenario: Add gasto
-    Given I am on "http://192.168.1.164/gastos/agregar/"
+    Given I am on "http://172.16.1.108/gastos/agregar/"
     And print current URL
     Then I should see "Crear un nuevo gasto"
     When I fill in "id_tipo_gastos" with "9"
@@ -41,13 +41,13 @@ Feature: Scrap behat gastos from my localhost project
     Then I should see "Gasto agregado exitosamente"
     When I follow "Buscar/editar gasto"
     Then I should see "Buscar gastos"
-    Then I take a screenshot with "add_gasto"
+    And I save "gastos" in a local storage device
 
   @delete_gasto
   @deletes
   @javascript
   Scenario: Delete gasto added by selenium
-    Given I am on "http://192.168.1.164/gastos/buscar/"
+    Given I am on "http://172.16.1.108/gastos/buscar/"
     Then I should see "Buscar gastos"
     When I follow "agregado con Mink"
     Then I take a screenshot with "delete_gasto"
