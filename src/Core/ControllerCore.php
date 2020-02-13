@@ -119,6 +119,8 @@ abstract class ControllerCore
     {
         $this->params->getModel()->edit($this->params->getUserData());
         $data = array('mensaje' => $this->params->getModel()->mensaje);
+        $this->params->getModel()->getAll();
+        $data['lista'] = $this->params->getModel()->data_list;
         print $this->params->getModelView()->retornar_vista(Constants::VIEW_GET, $this->params->getModulo(), $data);
     }
 
