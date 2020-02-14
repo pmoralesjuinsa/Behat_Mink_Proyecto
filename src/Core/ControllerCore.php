@@ -12,7 +12,8 @@ abstract class ControllerCore
     protected $params;
     protected $obligatorias;
 
-    public function handler($modulo) {
+    public function handler($modulo)
+    {
         $this->event = Constants::VIEW_GET;
         $this->uri = $_SERVER['REQUEST_URI'];
         $this->peticiones = array(
@@ -58,7 +59,11 @@ abstract class ControllerCore
 
     function goToSetView()
     {
-        $vars_are_ok = Tools::checkIfObligatoriesColumnsArePresent($this->params->getModel()->obligatorias, $this->params->getUserData());
+        $vars_are_ok = Tools::checkIfObligatoriesColumnsArePresent(
+            $this->params->getModel()->obligatorias,
+            $this->params->getUserData()
+        );
+
         if ($vars_are_ok) {
             $this->params->getModel()->set($this->params->getUserData());
             $data = array('mensaje' => $this->params->getModel()->mensaje);
@@ -75,6 +80,8 @@ abstract class ControllerCore
         $this->params->getModel()->get($this->params->getUserData());
 
         $data = $this->putDataFromModelResult();
+
+        $this->replaceValueOfForeignKeyToSelector($data);
 
         print $this->params->getModelView()->retornar_vista(Constants::VIEW_EDIT, $this->params->getModulo(), $data);
     }
@@ -96,8 +103,8 @@ abstract class ControllerCore
 
                 $name_var = $class_var->getName();
 
-                if($name_var == 'fecha') {
-                    $data[$class_var->getName()] = date("Y-m-d",strtotime($this->params->getModel()->$name_var));
+                if ($name_var == 'fecha') {
+                    $data[$class_var->getName()] = date("Y-m-d", strtotime($this->params->getModel()->$name_var));
                 } else {
                     $data[$class_var->getName()] = $this->params->getModel()->$name_var;
                 }
@@ -106,6 +113,65 @@ abstract class ControllerCore
         }
 
         return $data;
+    }
+
+    protected function replaceValueOfForeignKeyToSelector(&$data)
+    {
+        $dataKeys = array_keys($data);
+
+        foreach ($dataKeys as $key) {
+            if (preg_match("/^id_(.*)/", $key, $match)) {
+
+                $className = $this->convertToCapitalizeString($match[1]);
+                $namespacePath = "\Src\TipoGastos\\" . $className;
+                $modelName = $namespacePath . "Model";
+
+                $modelListData = new $modelName();
+                $modelListData->getAll();
+
+                $listValues = $modelListData->data_list;
+
+                $originalValue = $data[$key];
+                $nameRow = $modelListData->htmlSelectorNameRow;
+
+                $this->composeSelectorHtmlForForeignKey($data, $key, $listValues, $originalValue, $nameRow);
+            }
+        }
+    }
+
+    protected function convertToCapitalizeString($string)
+    {
+        $stringArray = explode("_", $string);
+
+        $stringCapitalized = '';
+
+        foreach ($stringArray as $item) {
+            $stringCapitalized .= ucfirst($item);
+        }
+
+        return $stringCapitalized;
+    }
+
+    /**
+     * @param $data
+     * @param $key
+     * @param array $listValues
+     * @param $originalValue
+     */
+    protected function composeSelectorHtmlForForeignKey(&$data, $key, array $listValues, $originalValue, $nameRow)
+    {
+        $data[$key] = "<div class='form_requerid'>";
+        $data[$key] .= "<select name='" . $key . "' id='" . $key . "'>";
+
+        foreach ($listValues as $item) {
+            if ($originalValue == $item['id']) {
+                $data[$key] .= "<option selected value='" . $item['id'] . "'>" . $item[$nameRow] . "</option>";
+            } else {
+                $data[$key] .= "<option value='" . $item['id'] . "'>" . $item[$nameRow] . "</option>";
+            }
+        }
+
+        $data[$key] .= "</select></div>";
     }
 
     function goToDeleteView()
@@ -136,7 +202,7 @@ abstract class ControllerCore
     {
         $user_data = array();
         if ($_POST) {
-            foreach($_POST as $key=>$value) {
+            foreach ($_POST as $key => $value) {
                 $user_data[$key] = $value;
             }
 
@@ -149,5 +215,6 @@ abstract class ControllerCore
         }
         return $user_data;
     }
+
 
 }

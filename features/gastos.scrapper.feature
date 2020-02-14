@@ -7,7 +7,7 @@ Feature: Scrap behat gastos from my localhost project
   @gastos_list
   @my_lists
   Scenario: See gastos List from dashboard
-    Given I am on "http://172.17.0.1/dashboard/"
+    Given I am on "/dashboard/"
     Then I should see "Beneficios del mes"
     When I follow "Buscar/editar gasto"
     Then the url should match "gastos/buscar"
@@ -15,7 +15,7 @@ Feature: Scrap behat gastos from my localhost project
 
   @edit_gasto
   Scenario: Edit gasto
-    Given I am on "http://localhost/gastos/buscar/"
+    Given I am on "/gastos/buscar/"
     When I fill in "id" with "44"
     And I press "Buscar"
     And print current URL
@@ -28,7 +28,7 @@ Feature: Scrap behat gastos from my localhost project
   @add_gasto
   @javascript
   Scenario: Add gasto
-    Given I am on "http://172.17.0.1/gastos/agregar/"
+    Given I am on "/gastos/agregar/"
     And print current URL
     Then I should see "Crear un nuevo gasto"
     When I fill in "id_tipo_gastos" with "9"
@@ -47,7 +47,7 @@ Feature: Scrap behat gastos from my localhost project
   @deletes
   @javascript
   Scenario: Delete gasto added by selenium
-    Given I am on "http://172.17.0.1/gastos/buscar/"
+    Given I am on "/gastos/buscar/"
     Then I should see "Buscar gastos"
     When I follow "agregado con Mink"
     Then I take a screenshot with "delete_gasto"

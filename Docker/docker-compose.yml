@@ -40,7 +40,14 @@ services:
       - chrome:chrome
     ports:
       - 80:80
+    networks:
+      default:
+        aliases:
+          - localserver
 
 
 volumes:
   mysql-db-data:
+
+networks:
+  default:
