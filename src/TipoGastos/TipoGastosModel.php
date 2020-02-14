@@ -9,7 +9,7 @@ class TipoGastosModel extends DBAbstractModel
 {
     public $data_list = array();
 
-    function getAll()
+    public function getAll()
     {
         $tipoGastosList = new TipoGastosListModel();
 

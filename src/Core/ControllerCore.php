@@ -118,28 +118,16 @@ abstract class ControllerCore
 
         foreach ($dataKeys as $key) {
             if (preg_match("/^id_(.*)/", $key, $match)) {
-                $listValues = array(
-                    0 => array(
-                        "name" => "Cochera",
-                        "value" => 2
-                    ),
-                    1 => array(
-                        "name" => "Algo",
-                        "value" => 3
-                    )
-                );
 
                 $className = $this->convertToCapitalizeString($match[1]);
                 $namespacePath = "\Src\TipoGastos\\".$className;
                 $modelName = $namespacePath."Model";
                 $modelListData = new $modelName();
+                $modelListData->getAll();
 
-                $listValues = $modelListData->getAll();
-                var_dump($listValues->data_list);
-                die();
-
-
+                $listValues = $modelListData->data_list;
                 $originalValue = $data[$key];
+var_dump($data[$key]);
 
                 $this->composeSelectorHtmlForForeignKey($data, $key, $listValues, $originalValue);
             }
@@ -171,10 +159,10 @@ abstract class ControllerCore
         $data[$key] .= "<select name='" . $key . "' id='" . $key . "'>";
 
         foreach ($listValues as $item) {
-            if ($originalValue == $item['value']) {
-                $data[$key] .= "<option selected value='" . $item['value'] . "'>" . $item['name'] . "</option>";
+            if ($originalValue == $item['id']) {
+                $data[$key] .= "<option selected value='" . $item['id'] . "'>" . $item['nombre'] . "</option>";
             } else {
-                $data[$key] .= "<option value='" . $item['value'] . "'>" . $item['name'] . "</option>";
+                $data[$key] .= "<option value='" . $item['id'] . "'>" . $item['nombre'] . "</option>";
             }
         }
 
