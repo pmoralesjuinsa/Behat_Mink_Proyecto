@@ -19,7 +19,7 @@ default:
             goutte: ~
           selenium2:
             selenium2:
-              wd_host: "http://172.19.0.4:5555/wd/hub"
+              wd_host: "chrome:5555/wd/hub"
 
         browser_name: chrome
 

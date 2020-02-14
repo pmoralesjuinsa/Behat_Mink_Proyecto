@@ -27,7 +27,7 @@ Feature: Scrap behat ingresos from my localhost project
   @add_ingreso
   @javascript
   Scenario: Add ingreso
-    Given I am on "http://172.16.1.108/ingresos/agregar/"
+    Given I am on "http://172.17.0.1/ingresos/agregar/"
     And print current URL
     Then I should see "Crear un nuevo ingreso"
     When I fill in "nombre" with "Added with Behat"
@@ -44,7 +44,7 @@ Feature: Scrap behat ingresos from my localhost project
   @deletes
   @javascript
   Scenario: Delete ingreso added by selenium
-    Given I am on "http://172.16.1.108/ingresos/buscar/"
+    Given I am on "http://172.17.0.1/ingresos/buscar/"
     Then I should see "Buscar ingresos"
     When I follow "Added with Behat"
     Then I take a screenshot with "delete_ingreso"
