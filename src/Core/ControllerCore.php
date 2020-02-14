@@ -59,8 +59,11 @@ abstract class ControllerCore
 
     function goToSetView()
     {
-        $vars_are_ok = Tools::checkIfObligatoriesColumnsArePresent($this->params->getModel()->obligatorias,
-            $this->params->getUserData());
+        $vars_are_ok = Tools::checkIfObligatoriesColumnsArePresent(
+            $this->params->getModel()->obligatorias,
+            $this->params->getUserData()
+        );
+
         if ($vars_are_ok) {
             $this->params->getModel()->set($this->params->getUserData());
             $data = array('mensaje' => $this->params->getModel()->mensaje);
@@ -120,8 +123,8 @@ abstract class ControllerCore
             if (preg_match("/^id_(.*)/", $key, $match)) {
 
                 $className = $this->convertToCapitalizeString($match[1]);
-                $namespacePath = "\Src\TipoGastos\\".$className;
-                $modelName = $namespacePath."Model";
+                $namespacePath = "\Src\TipoGastos\\" . $className;
+                $modelName = $namespacePath . "Model";
 
                 $modelListData = new $modelName();
                 $modelListData->getAll();
