@@ -7,7 +7,7 @@ Feature: Scrap behat gastos from my localhost project
   @gastos_list
   @my_lists
   Scenario: See gastos List from dashboard
-    Given I am on "http://localhost/dashboard/"
+    Given I am on "http://172.17.0.1/dashboard/"
     Then I should see "Beneficios del mes"
     When I follow "Buscar/editar gasto"
     Then the url should match "gastos/buscar"
