@@ -122,14 +122,16 @@ abstract class ControllerCore
                 $className = $this->convertToCapitalizeString($match[1]);
                 $namespacePath = "\Src\TipoGastos\\".$className;
                 $modelName = $namespacePath."Model";
+
                 $modelListData = new $modelName();
                 $modelListData->getAll();
 
                 $listValues = $modelListData->data_list;
-                $originalValue = $data[$key];
-var_dump($data[$key]);
 
-                $this->composeSelectorHtmlForForeignKey($data, $key, $listValues, $originalValue);
+                $originalValue = $data[$key];
+                $nameRow = $modelListData->htmlSelectorNameRow;
+
+                $this->composeSelectorHtmlForForeignKey($data, $key, $listValues, $originalValue, $nameRow);
             }
         }
     }
@@ -153,16 +155,16 @@ var_dump($data[$key]);
      * @param array $listValues
      * @param $originalValue
      */
-    protected function composeSelectorHtmlForForeignKey(&$data, $key, array $listValues, $originalValue)
+    protected function composeSelectorHtmlForForeignKey(&$data, $key, array $listValues, $originalValue, $nameRow)
     {
         $data[$key] = "<div class='form_requerid'>";
         $data[$key] .= "<select name='" . $key . "' id='" . $key . "'>";
 
         foreach ($listValues as $item) {
             if ($originalValue == $item['id']) {
-                $data[$key] .= "<option selected value='" . $item['id'] . "'>" . $item['nombre'] . "</option>";
+                $data[$key] .= "<option selected value='" . $item['id'] . "'>" . $item[$nameRow] . "</option>";
             } else {
-                $data[$key] .= "<option value='" . $item['id'] . "'>" . $item['nombre'] . "</option>";
+                $data[$key] .= "<option value='" . $item['id'] . "'>" . $item[$nameRow] . "</option>";
             }
         }
 

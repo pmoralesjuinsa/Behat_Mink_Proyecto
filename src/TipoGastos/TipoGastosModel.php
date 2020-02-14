@@ -8,6 +8,7 @@ use Src\Core\DBAbstractModel;
 class TipoGastosModel extends DBAbstractModel
 {
     public $data_list = array();
+    public $htmlSelectorNameRow = "nombre";
 
     public function getAll()
     {
