@@ -7,7 +7,7 @@ Feature: Scrap behat ingresos from my localhost project
   @ingresos_list
   @my_lists
   Scenario: See ingresos List from dashboard
-    Given I am on "http://localhost/dashboard/"
+    Given I am on "/dashboard/"
     Then I should see "Beneficios del mes"
     When I follow "Buscar/editar ingreso"
     Then the url should match "ingresos/buscar"
@@ -15,7 +15,7 @@ Feature: Scrap behat ingresos from my localhost project
 
   @edit_ingreso
   Scenario: Edit ingreso
-    Given I am on "http://localhost/ingresos/buscar/"
+    Given I am on "/ingresos/buscar/"
     When I fill in "id" with "17"
     And I press "Buscar"
     And print current URL
@@ -27,7 +27,7 @@ Feature: Scrap behat ingresos from my localhost project
   @add_ingreso
   @javascript
   Scenario: Add ingreso
-    Given I am on "http://172.17.0.1/ingresos/agregar/"
+    Given I am on "/ingresos/agregar/"
     And print current URL
     Then I should see "Crear un nuevo ingreso"
     When I fill in "nombre" with "Added with Behat"
@@ -44,7 +44,7 @@ Feature: Scrap behat ingresos from my localhost project
   @deletes
   @javascript
   Scenario: Delete ingreso added by selenium
-    Given I am on "http://172.17.0.1/ingresos/buscar/"
+    Given I am on "/ingresos/buscar/"
     Then I should see "Buscar ingresos"
     When I follow "Added with Behat"
     Then I take a screenshot with "delete_ingreso"
