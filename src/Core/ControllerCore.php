@@ -41,12 +41,14 @@ abstract class ControllerCore
 
         switch ($this->event) {
             case Constants::DB_SET:
+            case Constants::VIEW_SET:
                 $this->goToSetView();
                 break;
             case Constants::DB_GET:
                 $this->goToGetView();
                 break;
             case Constants::DB_DELETE:
+            case Constants::VIEW_DELETE:
                 $this->goToDeleteView();
                 break;
             case Constants::DB_EDIT:
@@ -59,18 +61,26 @@ abstract class ControllerCore
 
     function goToSetView()
     {
-        $vars_are_ok = Tools::checkIfObligatoriesColumnsArePresent(
-            $this->params->getModel()->obligatorias,
-            $this->params->getUserData()
-        );
+        $data = $this->putDataFromModelResult();
+        $this->replaceValueOfForeignKeyToSelector($data);
+        $data['mensaje'] = "Añadir nuevo";
 
-        if ($vars_are_ok) {
-            $this->params->getModel()->set($this->params->getUserData());
-            $data = array('mensaje' => $this->params->getModel()->mensaje);
-        } else {
-            $this->mensaje = 'Datos insuficientes. No se ha agregado nada.';
-            $data = array('mensaje' => $this->mensaje);
+        if($this->event == Constants::DB_SET) {
+
+            $vars_are_ok = Tools::checkIfObligatoriesColumnsArePresent(
+                $this->params->getModel()->obligatorias,
+                $this->params->getUserData()
+            );
+
+            if ($vars_are_ok) {
+                $this->params->getModel()->set($this->params->getUserData());
+                $data['mensaje'] = $this->params->getModel()->mensaje;
+            } else {
+                $data['mensaje'] = 'Datos insuficientes. No se ha agregado nada.';
+            }
+
         }
+
 
         print $this->params->getModelView()->retornar_vista(Constants::VIEW_SET, $this->params->getModulo(), $data);
     }
@@ -176,8 +186,13 @@ abstract class ControllerCore
 
     function goToDeleteView()
     {
-        $this->params->getModel()->delete($this->params->getUserData()['id']);
-        $data = array('mensaje' => $this->params->getModel()->mensaje);
+        if($this->event == Constants::DB_DELETE) {
+            $this->params->getModel()->delete($this->params->getUserData()['id']);
+            $data['mensaje'] = $this->params->getModel()->mensaje;
+        } else {
+            $data['mensaje'] = "Eliminar";
+        }
+
         print $this->params->getModelView()->retornar_vista(Constants::VIEW_DELETE, $this->params->getModulo(), $data);
     }
 
@@ -195,6 +210,7 @@ abstract class ControllerCore
         $this->params->getModel()->getAll();
         $data['lista'] = $this->params->getModel()->data_list;
         $data['mensaje'] = "Listado del mes";
+
         print $this->params->getModelView()->retornar_vista($this->event, $this->params->getModulo(), $data);
     }
 
